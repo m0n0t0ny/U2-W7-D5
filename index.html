@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUDAZON</title>
+    <meta name="description" content="" />
+    <!-- favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./assets/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-config"
+      content="./assets/favicon/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="./assets/favicon/favicon.ico" type="image/x-icon" />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font-awesome 5.15 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- bootstrap 5.3 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="./assets/dist/css/style.min.css" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+
+  <body class="bg-dark position-relative">
+    <header
+      class="position-sticky top-0 left-0 right-0 d-flex align-items-center justify-content-center"
+    >
+      <nav
+        id="navbar"
+        class="navbar navbar-expand-lg navbar-dark bg-dark px-2 w-100"
+      >
+        <div
+          class="container-fluid d-flex align-items-center justify-content-between"
+        >
+          <a class="navbar-brand" href="#"
+            ><img
+              src="./assets/img/crudazon-logo.png"
+              alt="CRUDAZON logo"
+              width="35"
+          /></a>
+          <div class="header-buttons">
+            <button
+              id="shop-button"
+              type="button"
+              class="btn rounded-0 fw-bold d-inline-flex align-items-center ms-auto"
+            >
+              SHOP
+            </button>
+            <button
+              id="back-office-btn"
+              type="button"
+              class="btn rounded-0 fw-bold d-inline-flex align-items-center text-white ms-2"
+            >
+              BACK OFFICE
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="text-bg-dark d-flex align-items-center justify-content-center">
+      <div class="max-1000 container-md m-3">
+        <div id="backOffice" class="row">
+          <h2 class="text-bg-dark d-flex h2">BackOffice</h2>
+          <div id="add-new-item-form-container" class="container">
+            <form id="add-new-item-form" class="row g-5">
+              <div
+                class="col-xs-12 col-sm-12 col-md-6 d-flex flex-column justify-content-around"
+              >
+                <div class="text-bg-dark mb-3">
+                  <label for="product-name" class="form-label"
+                    >Product Name</label
+                  >
+                  <input
+                    autofocus
+                    required
+                    type="text"
+                    class="form-control"
+                    id="product-name"
+                    aria-describedby="name"
+                    placeholder="Add the product name here"
+                    maxlength="50"
+                  />
+                </div>
+                <div class="text-bg-dark mb-3">
+                  <label for="product-description" class="form-label"
+                    >Product Description</label
+                  >
+                  <textarea
+                    required
+                    type="text"
+                    class="form-control"
+                    id="product-description"
+                    aria-describedby="description"
+                    placeholder="Add the description here"
+                    maxlength="2000"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="row gx-0">
+                  <div class="col-6 text-bg-dark mb-3 pe-3">
+                    <label for="product-brand" class="form-label"
+                      >Product Brand</label
+                    >
+                    <input
+                      required
+                      class="form-control"
+                      type="text"
+                      id="product-brand"
+                      name="product-brand"
+                      placeholder="Add the product brand here"
+                      maxlength="50"
+                    />
+                  </div>
+                  <div class="col-6 text-bg-dark mb-3">
+                    <label for="product-price" class="form-label"
+                      >Product Price</label
+                    >
+                    <input
+                      required
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      id="product-price"
+                      data-type="currency"
+                      aria-describedby="price"
+                      placeholder="0,00"
+                    />
+                  </div>
+                </div>
+                <label for="product-image" class="form-label"
+                  >Product Image</label
+                >
+                <div
+                  class="text-bg-dark mb-3 mb-md-0 d-flex justify-content-center"
+                >
+                  <input
+                    type="url"
+                    name="product-url"
+                    class="form-control"
+                    id="product-url"
+                    placeholder="Add the product image URL here"
+                    pattern="https://.*"
+                    size="30"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 m-0">
+                <div
+                  class="h-100 bg-white d-flex align-self-stretch justify-content-center rounded-2 overflow-hidden border border-2 border-white"
+                >
+                  <img
+                    class="rounded-2"
+                    id="product-image-preview"
+                    src="./assets/img/img-placeholder.png"
+                    alt="Previw image"
+                    style="
+                      max-height: 500px;
+                      max-width: 500px;
+                      object-fit: contain;
+                    "
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn rounded-0 fw-bold mt-3"
+          id="submitNewItemButton"
+          style="width: 10rem"
+        >
+          SUBMIT
+        </button>
+      </div>
+    </main>
+
+    <footer></footer>
+
+    <!-- bootstrap js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <!-- popper js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <!-- custom js -->
+    <script src="./javascript/GET.js"></script>
+    <script src="./javascript/POST.js"></script>
+  </body>
+</html>

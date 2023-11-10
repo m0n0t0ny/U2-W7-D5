@@ -1,0 +1,125 @@
+@font-face {
+  font-family: "Dazn Trim";
+  src: url(./font/DAZNTrim_v2.9_normal_400.woff) format("woff2");
+  src: url(./font/DAZNTrim_v2.9_normal_400.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dazn Trim";
+  src: url(./font/DAZNTrim_v2.9_normal_600.woff2) format("woff2");
+  font-weight: 600;
+  font-style: bold;
+}
+@font-face {
+  font-family: "Dazn Trim";
+  src: url(./font/DAZNTrim_v2.9_normal_700.woff2) format("woff2");
+  font-weight: 700;
+  font-style: bolder;
+}
+@font-face {
+  font-family: "Dazn Trim Condensed";
+  src: url(./font/DAZNTrimCondensed_v1.0_normal_700.woff2) format("woff2");
+}
+@font-face {
+  font-family: "Oscine";
+  src: url(./font/Oscine_v2.001_normal_400.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oscine";
+  src: url(./font/Oscine_v2.001_normal_700.woff2) format("woff2");
+  font-weight: 700;
+  font-style: bold;
+}
+@font-face {
+  font-family: "Oscine";
+  src: url(./font/Oscine_v2.001_normal_800.woff2) format("woff2");
+  font-weight: 800;
+  font-style: bolder;
+}
+
+:root {
+  font-size: 14px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
+  overflow-y: scroll;
+}
+
+#navbar {
+  height: 60px;
+  max-width: 1400px;
+}
+
+#inner-nav > a,
+#inner-nav > h2,
+#inner-nav > div {
+  width: 33%;
+  display: flex;
+  align-items: center;
+}
+
+#back-office-btn {
+  background-color: #3d4549;
+}
+
+#shop-button {
+  background-color: #f7ff1a;
+}
+
+#back-office-btn,
+#shop-button {
+  height: 40px;
+  font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
+}
+
+main {
+  min-height: calc(100vh - 60px);
+}
+
+.max-1000 {
+  max-width: 1000px;
+}
+
+.max-1400 {
+  max-width: 1400px;
+}
+
+.add-new-item-form-container {
+  max-width: 500px;
+}
+
+#submitNewItemButton {
+  height: 40px;
+  background-color: #f7ff1a;
+  font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
+}
+
+/* * Media queries */
+
+/* @media screen and (min-width:576px) {
+} */
+
+/* @media screen and (min-width:768px) {
+} */
+
+/* @media screen and (min-width:992px) {
+} */
+
+/* @media screen and (min-width:1200px) {
+} */
+
+/* @media screen and (min-width:1400px) {
+} */
