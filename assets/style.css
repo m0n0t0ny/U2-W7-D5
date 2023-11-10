@@ -58,9 +58,12 @@ body {
   overflow-y: scroll;
 }
 
+a {
+  cursor: pointer;
+}
+
 #navbar {
   height: 60px;
-  max-width: 1400px;
 }
 
 #inner-nav > a,
@@ -97,14 +100,43 @@ main {
   max-width: 1400px;
 }
 
+/* ! BACK OFFICE */
+
 .add-new-item-form-container {
   max-width: 500px;
 }
 
-#submitNewItemButton {
+#submit-new-item-button {
   height: 40px;
   background-color: #f7ff1a;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
+  margin-left: 10px;
+}
+
+/* ! SHOP */
+
+.card {
+  max-height: 500px;
+}
+
+.product-img {
+  height: 200px !important;
+}
+
+.product-name,
+.product-description {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+.product-name {
+  -webkit-line-clamp: 1;
+}
+
+.product-description {
+  -webkit-line-clamp: 3;
 }
 
 /* * Media queries */
