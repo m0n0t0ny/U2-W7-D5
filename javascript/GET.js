@@ -1,3 +1,26 @@
+const cart = [];
+let total = 0;
+
+function checkCart() {
+  if (cart != 0) {
+    const cartButton = document.getElementById("cart-button");
+    cartButton.style.backgroundColor = "red";
+  }
+}
+
+function addToCart() {
+  const card = this.closest(".card");
+  const title = card.querySelector(".product-name").textContent;
+  const price = card.querySelector(".product-price").textContent;
+  const selectedItem = { title, price };
+  cart.push(selectedItem);
+  checkCart();
+  console.log(" -----------");
+  console.log("Item added to cart:", selectedItem);
+  console.log("cart:", cart);
+  console.log(" -----------");
+}
+
 function displayErrorMessage(message) {
   const body = document.querySelector("body");
   const error = document.createElement("h1");
@@ -68,6 +91,7 @@ function getRequest() {
         card.className =
           "card col-5 h-xs-25 col-sm-3 h-sm-50 col-md-3 h-md-75  col-xl-2 h-xl-100 p-3 rounded-4";
         card.style.minHeight = "100px";
+        card.addEventListener("click", expandCardForDetails);
         productsRow.appendChild(card);
 
         const spinner = document.createElement("div");
@@ -107,14 +131,14 @@ function getRequest() {
 
         if (product.description) {
           const description = document.createElement("p");
-          description.className = "product-description card-text";
+          description.className = "product-description card-text my-2";
           description.textContent = product.description;
           cardBody.appendChild(description);
         }
 
         const cardFooter = document.createElement("div");
         cardFooter.className =
-          "card-footer d-flex align-items-center justify-content-between mt-auto bg-white p-0 pt-3";
+          "card-footer d-flex align-items-center justify-content-between mt-auto bg-white p-0 pt-3 mb-2";
         card.appendChild(cardFooter);
 
         if (product.price) {
@@ -126,9 +150,22 @@ function getRequest() {
 
         const buyButton = document.createElement("button");
         buyButton.className = "btn btn-primary";
-        buyButton.innerHTML = `<span>Buy <i class="bi bi-cart4"></i></span>`;
-        buyButton.addEventListener("click", addToCart());
+        buyButton.innerText = "Buy ";
+        buyButton.addEventListener("click", addToCart);
         cardFooter.appendChild(buyButton);
+
+        const cartIcon = document.createElement("span");
+        cartIcon.className = "bi bi-cart4";
+        buyButton.appendChild(cartIcon);
+
+        if (product._id) {
+          const id = document.createElement("p");
+          id.className =
+            "product-id m-0 text-secondary mt-auto position-absolute bottom-0 left-0 right-0";
+          id.textContent = product._id;
+          id.style.fontSize = "8px";
+          cardFooter.appendChild(id);
+        }
       });
       console.log(" ---------------------------------");
       console.log("arrayOfProducts:", arrayOfProducts);
@@ -136,6 +173,42 @@ function getRequest() {
     })
     .catch((error) => console.log("Blocco catch", error));
 }
+
+function expandCardForDetails() {}
+
+// * hide card
+
+// const buttonHide = document.getElementById("button-hide");
+
+// function hideCard() {
+//   const thisCard = this.closest(".book-box");
+//   thisCard.className = "d-none";
+// }
+
+// * add book to cart
+
+// function addToCart(book) {
+//   cart.push(book);
+//   total += book.price;
+//   updateCartTotal();
+// }
+
+// buttonBuy.addEventListener("click", function () {
+//   const bookBox = this.closest(".book-box");
+//   const bookInfo = bookBox.querySelector("card-body");
+
+//   const bookData = {
+//     title: document.querySelector(".book-title").textContent,
+//     price: parseFloat(document.querySelector(".book-price").textContent)
+//   };
+
+//   addToCart(bookData);
+// });
+
+// const cartTotal = document.createElement("span");
+// cartTotal.id = "cart-total";
+// updateCartTotal();
+// document.querySelector(".total").appendChild(cartTotal);
 
 // * Create Shop
 

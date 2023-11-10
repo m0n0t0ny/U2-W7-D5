@@ -85,9 +85,16 @@
           /></a>
           <div class="header-buttons">
             <button
+              id="cart-button"
+              type="button"
+              class="btn rounded-0 fw-bold d-inline-flex align-items-center text-white ms-auto"
+            >
+              <i class="bi bi-cart4"></i>
+            </button>
+            <button
               id="shop-button"
               type="button"
-              class="btn rounded-0 fw-bold d-inline-flex align-items-center ms-auto"
+              class="btn rounded-0 fw-bold d-inline-flex align-items-center ms-2"
             >
               SHOP
             </button>
@@ -109,7 +116,29 @@
         class="container-md m-3 d-flex align-items-center justify-content-center"
       >
         <div id="back-office" class="row max-1000">
-          <h2 class="text-bg-dark d-flex h2">BackOffice</h2>
+          <div class="col-12 mb-5">
+            <h2 class="text-bg-dark d-flex h2">BackOffice</h2>
+            <div class="retrive-info-input row col-6">
+              <label for="id-input" class="form-label">Product ID</label>
+              <span class="col-6">
+                <input
+                  type="text"
+                  class="form-control col-6"
+                  id="id-input"
+                  aria-describedby="name"
+                  placeholder="Add product ID here"
+                />
+              </span>
+              <button
+                type="button"
+                class="btn rounded-0 fw-bold text-bg-secondary m-0 col-6"
+                id="edit-item-button"
+                style="width: 10rem"
+              >
+                EDIT
+              </button>
+            </div>
+          </div>
           <div class="container">
             <form class="row g-5">
               <div

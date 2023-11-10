@@ -52,6 +52,10 @@
   margin: 0;
 }
 
+* {
+  /* border-radius: 0 !important; */
+}
+
 body {
   min-height: 100vh;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
@@ -82,8 +86,13 @@ a {
   background-color: #f7ff1a;
 }
 
+#cart-button {
+  width: 40px;
+}
+
 #back-office-btn,
-#shop-button {
+#shop-button,
+#cart-button {
   height: 40px;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
 }
