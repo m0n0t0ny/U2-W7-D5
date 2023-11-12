@@ -458,7 +458,34 @@ function getRequest() {
           deleteButton.id = "delete-button";
           deleteButton.className = "btn btn-danger";
           deleteButton.innerHTML = `<i class="bi bi-trash"></i>`;
-          deleteButton.addEventListener("click", deleteItem);
+          deleteButton.addEventListener("click", async (e) => {
+            const shopPage = document.getElementById("shop-page");
+            shopPage.innerHTML = "";
+            const closestCard = e.target.closest(".card");
+            if (closestCard) {
+              closestCard.remove();
+            }
+            try {
+              const response = await fetch(
+                `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs"
+                  }
+                }
+              );
+              if (!response.ok) {
+                throw new Error("Something went wrong");
+              }
+              console.log("Product deleted");
+            } catch (error) {
+              console.error("Error:", error);
+            }
+            getRequest();
+          });
+
           cardFooter.appendChild(deleteButton);
         } else {
           const buyButton = document.createElement("button");
@@ -567,10 +594,19 @@ function loadViewCardPage(item) {
   card.appendChild(cardFooter);
 
   if (item.price) {
-    const price = document.createElement("span");
-    price.className = "product-price me-auto";
-    price.textContent = item.price + "€";
-    cardFooter.appendChild(price);
+    const cardPrice = document.createElement("span");
+    cardPrice.className = "product-price me-auto";
+    cardPrice.textContent = item.price + "€";
+    cardFooter.appendChild(cardPrice);
+  }
+
+  if (item._id) {
+    const cardId = document.createElement("p");
+    cardId.className =
+      "product-id m-0 text-secondary mt-auto position-absolute bottom-0 left-0 right-0";
+    cardId.textContent = item._id;
+    cardId.style.fontSize = "8px";
+    cardFooter.appendChild(cardId);
   }
 
   if (sessionStorage.getItem("isAdmin") === "true") {
@@ -586,18 +622,17 @@ function loadViewCardPage(item) {
     deleteButton.id = "delete-button";
     deleteButton.className = "btn btn-danger";
     deleteButton.innerHTML = `<i class="bi bi-trash"></i>`;
-    deleteButton.addEventListener("click", async (e) => {
+    deleteButton.setAttribute("data-card-id", item._id);
+    deleteButton.addEventListener("click", async () => {
+      const shopPage = document.getElementById("shop-page");
+      shopPage.innerHTML = "";
       const closestCard = e.target.closest(".card");
       if (closestCard) {
-        const productIdElement = closestCard.querySelector(".product-id");
-        if (productIdElement) {
-          let cardInnerText = productIdElement.textContent.trim();
-          cardInnerText = encodeURIComponent(cardInnerText);
-        }
+        closestCard.remove();
       }
       try {
         const response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/product/${innerText}`,
+          `https://striveschool-api.herokuapp.com/api/product/${item._id}`,
           {
             method: "DELETE",
             headers: {
@@ -607,17 +642,13 @@ function loadViewCardPage(item) {
           }
         );
         if (!response.ok) {
-          throw new Error("Failed to delete product");
+          throw new Error("Something went wrong");
         }
-        console.log("Product deleted successfully");
-        getRequest();
-        const closestCard = e.target.closest(".card");
-        if (closestCard) {
-          closestCard.remove();
-        }
+        console.log("Product deleted");
       } catch (error) {
         console.error("Error:", error);
       }
+      getRequest();
     });
 
     cardFooter.appendChild(deleteButton);
