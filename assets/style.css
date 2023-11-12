@@ -71,14 +71,14 @@ a {
 }
 
 #inner-nav > a,
-#inner-nav > h2,
+#page-index,
 #inner-nav > div {
-  width: 33%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-#back-office-btn {
+#back-office-button {
   background-color: #3d4549;
 }
 
@@ -86,13 +86,15 @@ a {
   background-color: #f7ff1a;
 }
 
-#cart-button {
-  width: 40px;
+#cart-button span {
+  transition: font-size 0.25s ease-in-out;
 }
 
-#back-office-btn,
+#back-office-button,
 #shop-button,
-#cart-button {
+#cart-button,
+#login-button,
+#logout-button {
   height: 40px;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
 }
@@ -128,8 +130,17 @@ main {
   max-height: 500px;
 }
 
+.max-height-auto {
+  height: fit-content;
+  max-height: unset !important;
+}
+
 .product-img {
-  height: 200px !important;
+  max-height: 200px;
+}
+
+.product-img-details {
+  max-height: 300px;
 }
 
 .product-name,
@@ -148,19 +159,10 @@ main {
   -webkit-line-clamp: 3;
 }
 
-/* * Media queries */
-
-/* @media screen and (min-width:576px) {
-} */
-
-/* @media screen and (min-width:768px) {
-} */
-
-/* @media screen and (min-width:992px) {
-} */
-
-/* @media screen and (min-width:1200px) {
-} */
-
-/* @media screen and (min-width:1400px) {
-} */
+.no-truncate {
+  -webkit-box-orient: unset;
+  overflow: unset;
+  text-overflow: unset;
+  display: flex;
+  -webkit-line-clamp: unset;
+}
