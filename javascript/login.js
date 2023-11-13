@@ -19,8 +19,6 @@ if (sessionStorage.isAdmin === "true") {
   backOfficeButton.classList.remove("d-none");
 }
 
-function editItem() {}
-
 function loadBackOffice() {
   console.log("Loading Back Office ⬇");
   hideShop();
@@ -38,8 +36,52 @@ function loadBackOffice() {
   const backOfficePage = document.getElementById("back-office-page");
   backOfficePage.className = "row max-1200";
 
-  const submitNewItemButton = document.getElementById("submit-new-item-button");
+  const editItemButton = document.getElementById("edit-item-button");
 
+  editItemButton.addEventListener("click", async function (POSTEditItem) {
+    POSTEditItem.preventDefault();
+
+    const productName = document.getElementById("product-name").value;
+    const productDescription = document.getElementById(
+      "product-description"
+    ).value;
+    const productBrand = document.getElementById("product-brand").value;
+    const productPrice = document.getElementById("product-price").value;
+    const productUrl = document.getElementById("product-url").value;
+
+    const updatedItemData = {
+      name: productName,
+      description: productDescription,
+      brand: productBrand,
+      price: productPrice,
+      imageUrl: productUrl
+    };
+
+    try {
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU8ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(updatedItemData)
+        }
+      );
+
+      if (response.ok) {
+      } else {
+        console.error("Failed to update product data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+
+  const submitNewItemButton = document.getElementById("submit-new-item-button");
+  submitNewItemButton.classList.remove("d-none");
   submitNewItemButton.addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -156,7 +198,7 @@ function loadLoginPage() {
     }
   }
 
-  // Function to store user credentials in sessionStorage
+  // Store user credentials in sesssionStorage
   function storeUserCredential(user) {
     sessionStorage.setItem("username", user.username);
     sessionStorage.setItem("password", user.password);
@@ -168,7 +210,7 @@ function loadLoginPage() {
     );
   }
 
-  // Toast success message
+  // Toast success messag
   function toastSuccessLoginMessage(username) {
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
     toast.show();
@@ -439,7 +481,116 @@ function getRequest() {
           editButton.id = "edit-button";
           editButton.className = "btn btn-warning";
           editButton.innerHTML = `<i class="bi bi-pencil-square"></i>`;
-          editButton.addEventListener("click", editItem);
+          editButton.addEventListener("click", async () => {
+            try {
+              const response = await fetch(
+                `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs",
+                    "Content-Type": "application/json"
+                  }
+                }
+              );
+
+              if (response.ok) {
+                const productData = await response.json();
+
+                const shopPage = document.getElementById("shop-page");
+                shopPage.classList.add("d-none");
+
+                const loginPage = document.getElementById("login-page");
+                loginPage.classList.add("d-none");
+
+                const viewCardPage = document.getElementById("view-card-page");
+                viewCardPage.classList.add("d-none");
+
+                const backOfficePage =
+                  document.getElementById("back-office-page");
+                backOfficePage.classList.remove("d-none");
+
+                const submitNewItemButton = document.getElementById(
+                  "submit-new-item-button"
+                );
+                submitNewItemButton.classList.add("d-none");
+
+                const editItemButton =
+                  document.getElementById("edit-item-button");
+                editItemButton.classList.remove("d-none");
+                editItemButton.addEventListener(
+                  "click",
+                  async function (POSTEditItem) {
+                    POSTEditItem.preventDefault();
+
+                    const productName =
+                      document.getElementById("product-name").value;
+                    const productDescription = document.getElementById(
+                      "product-description"
+                    ).value;
+                    const productBrand =
+                      document.getElementById("product-brand").value;
+                    const productPrice =
+                      document.getElementById("product-price").value;
+                    const productUrl =
+                      document.getElementById("product-url").value;
+
+                    const updatedItemData = {
+                      name: productName,
+                      description: productDescription,
+                      brand: productBrand,
+                      price: productPrice,
+                      imageUrl: productUrl
+                    };
+                    console.log(" ---------------------------------");
+                    console.log("updatedItemData:", updatedItemData);
+                    console.log(" ---------------------------------");
+
+                    try {
+                      const response = await fetch(
+                        `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
+                        {
+                          method: "PUT",
+                          headers: {
+                            Authorization:
+                              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs",
+                            "Content-Type": "application/json"
+                          },
+                          body: JSON.stringify(updatedItemData)
+                        }
+                      );
+
+                      if (response.ok) {
+                        console.log("Product updated successfully");
+                      } else {
+                        console.error("Failed to update product data");
+                        console.error("Response Status:", response.status);
+                        console.error("Response Text:", await response.text());
+                      }
+                    } catch (error) {
+                      console.error("Error:", error);
+                    }
+                  }
+                );
+
+                document.getElementById("product-name").value =
+                  productData.name;
+                document.getElementById("product-description").value =
+                  productData.description;
+                document.getElementById("product-brand").value =
+                  productData.brand;
+                document.getElementById("product-price").value =
+                  productData.price;
+                document.getElementById("product-url").value =
+                  productData.imageUrl;
+              } else {
+                console.error("Failed to fetch product data");
+              }
+            } catch (error) {
+              console.error("Error:", error);
+            }
+          });
           cardFooter.appendChild(editButton);
 
           const deleteButton = document.createElement("button");
@@ -640,7 +791,56 @@ function loadViewCardPage(item) {
     editButton.id = "edit-button";
     editButton.className = "btn btn-warning";
     editButton.innerHTML = `<i class="bi bi-pencil-square"></i>`;
-    editButton.addEventListener("click", editItem);
+    editButton.addEventListener("click", async () => {
+      try {
+        const response = await fetch(
+          `https://striveschool-api.herokuapp.com/api/product/${item._id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs",
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+        if (response.ok) {
+          const productData = await response.json();
+
+          const shopPage = document.getElementById("shop-page");
+          shopPage.classList.add("d-none");
+
+          const loginPage = document.getElementById("login-page");
+          loginPage.classList.add("d-none");
+
+          const viewCardPage = document.getElementById("view-card-page");
+          viewCardPage.classList.add("d-none");
+
+          const backOfficePage = document.getElementById("back-office-page");
+          backOfficePage.classList.remove("d-none");
+
+          const submitNewItemButton = document.getElementById(
+            "submit-new-item-button"
+          );
+          submitNewItemButton.classList.add("d-none");
+
+          const editItemButton = document.getElementById("edit-item-button");
+          editItemButton.classList.remove("d-none");
+
+          document.getElementById("product-name").value = productData.name;
+          document.getElementById("product-description").value =
+            productData.description;
+          document.getElementById("product-brand").value = productData.brand;
+          document.getElementById("product-price").value = productData.price;
+          document.getElementById("product-url").value = productData.imageUrl;
+        } else {
+          console.error("Failed to fetch product data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
     cardFooter.appendChild(editButton);
 
     const deleteButton = document.createElement("button");
