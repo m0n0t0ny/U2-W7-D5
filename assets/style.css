@@ -99,7 +99,8 @@ a {
 #shop-button,
 #cart-button,
 #login-button,
-#logout-button {
+#logout-button,
+#reset-item-button {
   height: 40px;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
 }

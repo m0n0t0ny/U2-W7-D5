@@ -1,6 +1,3 @@
-let cart = [];
-let total = 0;
-
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", loadLoginPage);
 console.log("loginButton: addeventlistener");
@@ -8,10 +5,14 @@ console.log("loginButton: addeventlistener");
 const backOfficeButton = document.getElementById("back-office-button");
 backOfficeButton.addEventListener("click", loadBackOffice);
 
-const addItemOfficeForm = document.getElementById("add-item-office-form");
-const resetButton = document.getElementById("reset-item-button");
-resetButton.addEventListener("click", function () {
-  addItemOfficeForm.reset();
+document.addEventListener("DOMContentLoaded", function () {
+  const addItemOfficeForm = document.getElementById("add-item-office-form");
+  const resetButton = document.getElementById("reset-item-button");
+
+  resetButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    addItemOfficeForm.reset();
+  });
 });
 
 if (sessionStorage.isAdmin === "true") {
@@ -31,16 +32,19 @@ function loadBackOffice() {
   hideShop();
   console.log("hiding Shop ⬇");
 
+  // * Product image live update
+  const productUrlInput = document.getElementById("product-url");
+  const productImagePreview = document.getElementById("product-image-preview");
+
+  productUrlInput.addEventListener("input", function () {
+    const imageUrl = this.value;
+    productImagePreview.src = imageUrl;
+  });
+
   const backOfficePage = document.getElementById("back-office-page");
   backOfficePage.className = "row max-1200";
 
   const submitNewItemButton = document.getElementById("submit-new-item-button");
-
-  const addItemOfficeForm = document.getElementById("add-item-office-form");
-  const resetButton = document.getElementById("reset-item-button");
-  resetButton.addEventListener("click", function () {
-    addItemOfficeForm.reset();
-  });
 
   submitNewItemButton.addEventListener("click", function (event) {
     event.preventDefault();
@@ -109,6 +113,7 @@ function loadLoginPage() {
 
     login(usernameInput, passwordInput);
     console.log("login");
+    console.log(" -------------");
   });
 
   // Guest login
@@ -205,6 +210,7 @@ function loadLoginPage() {
     navUsername.innerHTML = `Hi, <b>${username}</b>`;
 
     console.log("showUsernameOnNavbar");
+    console.log(" -------------------------------------------");
   }
 
   // Show cart and total
@@ -212,6 +218,7 @@ function loadLoginPage() {
     const cartButton = document.getElementById("cart-button");
     cartButton.classList.remove("d-none");
     console.log("showCartButton");
+    console.log(" -------------------------------");
   }
 
   // Show loading spinner before content loads
@@ -224,9 +231,11 @@ function loadLoginPage() {
     </div>`;
 
     console.log("showLoadingSpinner");
+    console.log(" ---------------------------------------");
 
     return new Promise((resolve) => {
       console.log("return new Promise");
+      console.log(" ---------------------------------------");
       setTimeout(resolve, 2000);
     });
   }
@@ -234,14 +243,17 @@ function loadLoginPage() {
   // Load Shop
   async function loadShop() {
     console.log("loadShop:");
+    console.log(" -------------------");
     await showLoadingSpinner();
     console.log("showLoadingSpinner");
+    console.log(" ---------------------------------------");
 
     if (sessionStorage.getItem("userType") === "user") {
       const logoutButton = document.getElementById("logout-button");
       logoutButton.classList.remove("d-none");
       logoutButton.addEventListener("click", logout);
       console.log("logoutButton: removed d-none");
+      console.log(" ---------------------------");
     }
 
     const pageIndex = document.getElementById("page-index");
@@ -270,25 +282,6 @@ function loadLoginPage() {
     getRequest();
   }
 
-  // * Product image live update
-
-  const productUrl = document.getElementById("product-url");
-  productUrl.addEventListener("change", displayUrlImage);
-
-  function displayUrlImage() {
-    const imageUrl = productUrl.value;
-    const productImagePreview = document.getElementById(
-      "product-image-preview"
-    );
-
-    if (imageUrl) {
-      productImagePreview.src = imageUrl;
-    }
-
-    console.log("displayUrlImage");
-    console.log(" -------------------");
-  }
-
   // Hide the shop element
   function hideShop() {
     const shopPage = document.getElementById("shop-page");
@@ -299,6 +292,9 @@ function loadLoginPage() {
 
   console.log("Login page loaded!");
 }
+
+let cart = [];
+let total = 0;
 
 getRequest();
 console.log("getRequest");

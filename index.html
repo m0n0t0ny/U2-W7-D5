@@ -139,7 +139,7 @@
         <div id="shop-page" class="row max-1200 d-none"></div>
         <!-- ! LOGIN PAGE -->
         <div id="login-page" class="row max-1200 d-none">
-          <form id="add-item-office-form" class="row gx-5 m-0">
+          <form class="row gx-5 m-0">
             <div
               class="col-12 d-flex flex-column justify-content-around align-items-center"
             >
@@ -213,7 +213,7 @@
             </div>
           </div>
           <div class="container">
-            <form class="row gx-5">
+            <form id="add-item-office-form" class="row gx-5">
               <div
                 class="col-xs-12 col-sm-12 col-md-6 d-flex flex-column justify-content-around"
               >
@@ -313,24 +313,26 @@
                   />
                 </div>
               </div>
+              <div class="form-buttons">
+                <button
+                  type="button"
+                  class="btn rounded-0 fw-bold mt-4 ms-0 text-bg-success"
+                  id="submit-new-item-button"
+                  style="width: 10rem"
+                >
+                  SUBMIT
+                </button>
+                <button
+                  type="button"
+                  class="btn text-bg-warning rounded-0 fw-bold mt-4 ms-3"
+                  id="reset-item-button"
+                  style="width: 10rem"
+                >
+                  RESET
+                </button>
+              </div>
             </form>
           </div>
-          <button
-            type="button"
-            class="btn rounded-0 fw-bold mt-4 text-bg-success"
-            id="submit-new-item-button"
-            style="width: 10rem"
-          >
-            SUBMIT
-          </button>
-          <button
-            type="button"
-            class="btn btn-warning rounded-0 text-bg-warning fw-bold mt-4 ms-3"
-            id="reset-item-button"
-            style="width: 10rem"
-          >
-            RESET
-          </button>
         </div>
       </div>
     </main>
