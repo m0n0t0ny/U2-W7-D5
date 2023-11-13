@@ -19,13 +19,7 @@ if (sessionStorage.isAdmin === "true") {
   backOfficeButton.classList.remove("d-none");
 }
 
-function editItem() {
-  console.log("edit item");
-}
-
-function deleteItem() {
-  console.log("item deleted");
-}
+function editItem() {}
 
 function loadBackOffice() {
   console.log("Loading Back Office ⬇");
@@ -179,11 +173,11 @@ function loadLoginPage() {
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
     toast.show();
 
-    const loginOutcome = document.getElementById("login-outcome");
+    const loginOutcome = document.getElementById("toast-outcome");
     loginOutcome.className = "text-success me-auto";
     loginOutcome.innerText = "Access Granted";
 
-    const loggingInAs = document.getElementById("logging-in-as");
+    const loggingInAs = document.getElementById("toast-message");
     loggingInAs.innerHTML = `Logging in as <b>${username}</b>`;
 
     console.log("toastSuccessLoginMessage");
@@ -194,11 +188,11 @@ function loadLoginPage() {
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
     toast.show();
 
-    const loginOutcome = document.getElementById("login-outcome");
+    const loginOutcome = document.getElementById("toast-outcome");
     loginOutcome.className = "text-danger me-auto";
     loginOutcome.innerText = "Access Denied";
 
-    const loggingInAs = document.getElementById("logging-in-as");
+    const loggingInAs = document.getElementById("toast-message");
     loggingInAs.innerText = "Please check your username and password and retry";
 
     console.log("toastFailureLoginMessage");
@@ -409,7 +403,7 @@ function getRequest() {
 
         const cardFooter = document.createElement("div");
         cardFooter.className =
-          "card-footer d-flex align-items-center mt-auto bg-white p-0 pt-3 mb-2";
+          "card-footer d-flex align-items-center mt-auto bg-white p-0 pt-3";
         card.appendChild(cardFooter);
 
         if (product.price) {
@@ -453,31 +447,67 @@ function getRequest() {
           deleteButton.className = "btn btn-danger";
           deleteButton.innerHTML = `<i class="bi bi-trash"></i>`;
           deleteButton.addEventListener("click", async (e) => {
-            const shopPage = document.getElementById("shop-page");
-            shopPage.innerHTML = "";
-            const closestCard = e.target.closest(".card");
-            if (closestCard) {
-              closestCard.remove();
-            }
-            try {
-              const response = await fetch(
-                `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
-                {
-                  method: "DELETE",
-                  headers: {
-                    Authorization:
-                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs"
-                  }
-                }
+            const confirmation = window.confirm(
+              "Are you sure you want to delete this item?"
+            );
+
+            if (confirmation) {
+              console.log("Item deleted");
+
+              const toast = new bootstrap.Toast(
+                document.getElementById("liveToast")
               );
-              if (!response.ok) {
-                throw new Error("Something went wrong");
+              toast.show();
+
+              const deleteOutcome = document.getElementById("toast-outcome");
+              deleteOutcome.className = "text-success me-auto";
+              deleteOutcome.innerText = "Item deleted";
+
+              const toastMessage = document.getElementById("toast-message");
+              toastMessage.innerHTML = `<b>${product.name}</b> deleted.`;
+
+              console.log("toastSuccessLoginMessage");
+
+              const shopPage = document.getElementById("shop-page");
+              shopPage.innerHTML = "";
+              const closestCard = e.target.closest(".card");
+              if (closestCard) {
+                closestCard.remove();
               }
-              console.log("Product deleted");
-            } catch (error) {
-              console.error("Error:", error);
+              try {
+                const response = await fetch(
+                  `https://striveschool-api.herokuapp.com/api/product/${product._id}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      Authorization:
+                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZTI4MDI1NGU4ODAwMTgzZjE4NjciLCJpYXQiOjE2OTk2MDMwNzIsImV4cCI6MTcwMDgxMjY3Mn0.m4a72RFt16Fio7Qj6dSirjfZJk7srWAS7drV9EY-ezs"
+                    }
+                  }
+                );
+                if (!response.ok) {
+                  throw new Error("Something went wrong");
+                }
+                console.log("Product deleted");
+              } catch (error) {
+                console.error("Error:", error);
+              }
+              getRequest();
+            } else {
+              console.log("Deletion canceled");
+
+              const toast = new bootstrap.Toast(
+                document.getElementById("liveToast")
+              );
+              toast.show();
+
+              const deleteOutcome = document.getElementById("toast-outcome");
+              deleteOutcome.className = "text-danger me-auto";
+              deleteOutcome.innerText = "Deletion canceled";
+
+              const toastMessage = document.getElementById("toast-message");
+              toastMessage.innerHTML = `You did NOT delete <b>${product.name}</b>.`;
             }
-            getRequest();
           });
 
           cardFooter.appendChild(deleteButton);
@@ -496,7 +526,7 @@ function getRequest() {
         if (product._id) {
           const productId = document.createElement("p");
           productId.className =
-            "product-id m-0 text-secondary mt-auto position-absolute bottom-0 left-0 right-0";
+            "product-id m-0 text-secondary mt-auto position-absolute bottom-0 left-0 right-0 d-none";
           productId.textContent = product._id;
           productId.style.fontSize = "8px";
           cardFooter.appendChild(productId);
@@ -585,7 +615,7 @@ function loadViewCardPage(item) {
 
   const cardFooter = document.createElement("div");
   cardFooter.className =
-    "card-footer d-flex align-items-center mt-auto bg-white p-0 pt-3 mb-2";
+    "card-footer d-flex align-items-center mt-auto bg-white p-0 pt-3";
   card.appendChild(cardFooter);
 
   if (item.price) {
