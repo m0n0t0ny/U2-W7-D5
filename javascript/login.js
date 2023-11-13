@@ -1,7 +1,22 @@
+let cart = [];
+let total = 0;
+
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", loadLoginPage);
 console.log("loginButton: addeventlistener");
-console.log(" -------------------------");
+
+const backOfficeButton = document.getElementById("back-office-button");
+backOfficeButton.addEventListener("click", loadBackOffice);
+
+const addItemOfficeForm = document.getElementById("add-item-office-form");
+const resetButton = document.getElementById("reset-item-button");
+resetButton.addEventListener("click", function () {
+  addItemOfficeForm.reset();
+});
+
+if (sessionStorage.isAdmin === "true") {
+  backOfficeButton.classList.remove("d-none");
+}
 
 function editItem() {
   console.log("edit item");
@@ -17,9 +32,15 @@ function loadBackOffice() {
   console.log("hiding Shop ⬇");
 
   const backOfficePage = document.getElementById("back-office-page");
-  backOfficePage.classList.remove = "d-none";
+  backOfficePage.className = "row max-1200";
 
   const submitNewItemButton = document.getElementById("submit-new-item-button");
+
+  const addItemOfficeForm = document.getElementById("add-item-office-form");
+  const resetButton = document.getElementById("reset-item-button");
+  resetButton.addEventListener("click", function () {
+    addItemOfficeForm.reset();
+  });
 
   submitNewItemButton.addEventListener("click", function (event) {
     event.preventDefault();
@@ -60,6 +81,12 @@ function loadBackOffice() {
         });
     }
   });
+
+  const viewCardPage = document.getElementById("view-card-page");
+  viewCardPage.classList.add("d-none");
+
+  const backofficeButton = document.getElementById("back-office-button");
+  backofficeButton.classList.add("d-none");
 }
 
 function loadLoginPage() {
@@ -82,7 +109,6 @@ function loadLoginPage() {
 
     login(usernameInput, passwordInput);
     console.log("login");
-    console.log(" -------------");
   });
 
   // Guest login
@@ -93,7 +119,6 @@ function loadLoginPage() {
     event.preventDefault();
     login("guest", "password");
     console.log("login");
-    console.log(" -------------");
   });
 
   console.log("loadLoginPage started");
@@ -103,7 +128,6 @@ function loadLoginPage() {
 
   function findUser(username, password) {
     console.log("return:", users.find);
-    console.log(" ---------------");
     return users.find(
       (user) => user.username === username && user.password === password
     );
@@ -115,31 +139,21 @@ function loadLoginPage() {
     if (user) {
       storeUserCredential(user);
       console.log("storeUserCredential: starting");
-      console.log(" -----------------------------------------");
       hideLoginPage();
       console.log("hideLoginPage: starting");
-      console.log(" -----------------------------");
       toastSuccessLoginMessage(user.username);
       console.log("toastSuccessLoginMessage: starting");
-      console.log(
-        " -----------------------------------------------------------------------------------"
-      );
       showUsernameOnNavbar(user.username);
       console.log("showUsernameOnNavbar: starting");
-      console.log(" -------------------------------------------");
       showlogoutButton();
       console.log("showlogoutButton: starting");
-      console.log(" -----------------------------------");
       showCartButton();
       console.log("showCartButton: starting");
-      console.log(" -------------------------------");
       loadShop();
       console.log("loadShop: starting");
-      console.log(" -------------------");
     } else {
       toastFailureLoginMessage();
       console.log("toastFailureLoginMessage");
-      console.log(" ---------------------------------------------------");
     }
   }
 
@@ -153,7 +167,6 @@ function loadLoginPage() {
     console.log(
       "storeUserCredential: stored username, password, userType, isAdmin, apiKey"
     );
-    console.log(" -----------------------------------------");
   }
 
   // Toast success message
@@ -169,7 +182,6 @@ function loadLoginPage() {
     loggingInAs.innerHTML = `Logging in as <b>${username}</b>`;
 
     console.log("toastSuccessLoginMessage");
-    console.log(" ---------------------------------------------------");
   }
 
   // Toast failure message
@@ -185,7 +197,6 @@ function loadLoginPage() {
     loggingInAs.innerText = "Please check your username and password and retry";
 
     console.log("toastFailureLoginMessage");
-    console.log(" ---------------------------------------------------");
   }
 
   // Show username on navbar after login
@@ -194,7 +205,6 @@ function loadLoginPage() {
     navUsername.innerHTML = `Hi, <b>${username}</b>`;
 
     console.log("showUsernameOnNavbar");
-    console.log(" -------------------------------------------");
   }
 
   // Show cart and total
@@ -202,7 +212,6 @@ function loadLoginPage() {
     const cartButton = document.getElementById("cart-button");
     cartButton.classList.remove("d-none");
     console.log("showCartButton");
-    console.log(" -------------------------------");
   }
 
   // Show loading spinner before content loads
@@ -215,11 +224,9 @@ function loadLoginPage() {
     </div>`;
 
     console.log("showLoadingSpinner");
-    console.log(" ---------------------------------------");
 
     return new Promise((resolve) => {
       console.log("return new Promise");
-      console.log(" ---------------------------------------");
       setTimeout(resolve, 2000);
     });
   }
@@ -227,17 +234,14 @@ function loadLoginPage() {
   // Load Shop
   async function loadShop() {
     console.log("loadShop:");
-    console.log(" -------------------");
     await showLoadingSpinner();
     console.log("showLoadingSpinner");
-    console.log(" ---------------------------------------");
 
     if (sessionStorage.getItem("userType") === "user") {
       const logoutButton = document.getElementById("logout-button");
       logoutButton.classList.remove("d-none");
       logoutButton.addEventListener("click", logout);
       console.log("logoutButton: removed d-none");
-      console.log(" ---------------------------");
     }
 
     const pageIndex = document.getElementById("page-index");
@@ -253,17 +257,14 @@ function loadLoginPage() {
       // } else {
       getRequest();
       console.log("Sending GET request...");
-      console.log(" -----------------------");
     }
 
     if (sessionStorage.getItem("isAdmin") === "true") {
       const backOfficeButton = document.getElementById("back-office-button");
       backOfficeButton.classList.remove("d-none");
       console.log("backOfficeButton: removed d-none");
-      console.log(" -----------------------------------");
       backOfficeButton.addEventListener("click", loadBackOffice);
       console.log("backOfficeButton: add event listener");
-      console.log(" -----------------------------------");
     }
 
     getRequest();
@@ -298,9 +299,6 @@ function loadLoginPage() {
 
   console.log("Login page loaded!");
 }
-
-let cart = [];
-let total = 0;
 
 getRequest();
 console.log("getRequest");
@@ -509,16 +507,17 @@ function getRequest() {
         }
 
         console.log("createProductCard:");
-        console.log(" -------------------------------------");
-
-        return card;
       });
     })
     .catch((error) => {
       console.log("Error: " + error.message);
     });
   console.log("getRequest: completed");
-  console.log(" -----------------------");
+
+  if (sessionStorage.getItem("userType" !== "guest")) {
+    const loginButton = document.getElementById("login-button");
+    loginButton.classList.remove("d-none");
+  }
 
   if (sessionStorage.getItem("isAdmin" === "true")) {
     const backOfficeButton = document.getElementById("back-office-button");
@@ -689,14 +688,15 @@ function logout() {
   backofficeButton.classList.add("d-none");
 
   console.log("logout:");
-  console.log(" ---------------");
 
   hideBackOfficePage();
   console.log("hideBackOfficePage");
 
   hideLoginPage();
   console.log("hideLoginPage");
-  console.log(" -----------------------------");
+
+  const loginButton = document.getElementById("login-button");
+  loginButton.classList.remove("d-none");
 
   const shopPage = document.getElementById("shop-page");
   shopPage.innerHTML = "";
@@ -714,7 +714,6 @@ function showlogoutButton() {
   }
 
   console.log("showlogoutButton");
-  console.log(" -----------------------------------");
 }
 
 // Hide login page
@@ -723,7 +722,6 @@ function hideLoginPage() {
   loginPage.classList.add("d-none");
 
   console.log("hideLoginPage");
-  console.log(" -----------------------------");
 }
 
 // Hide back-office page
@@ -732,5 +730,4 @@ function hideBackOfficePage() {
   backOfficePage.classList.add("d-none");
 
   console.log("hideBackOfficePage");
-  console.log(" ---------------------------------------");
 }

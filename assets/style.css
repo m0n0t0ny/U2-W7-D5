@@ -52,8 +52,13 @@
   margin: 0;
 }
 
-* {
-  /* border-radius: 0 !important; */
+button {
+  transition: all 0.1s ease-in-out !important;
+}
+
+button:hover {
+  transform: scale(1.1) rotate(2deg);
+  transition: all 0.1s ease-in-out;
 }
 
 body {
@@ -119,7 +124,6 @@ main {
 
 #submit-new-item-button {
   height: 40px;
-  background-color: #f7ff1a;
   font-family: "DAZN Trim", Helvetica, Arial, sans-serif;
   margin-left: 10px;
 }
